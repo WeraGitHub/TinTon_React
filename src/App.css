@@ -48,6 +48,7 @@ body {
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
+  flex-wrap: wrap;
 }
 
 .color-button {
@@ -69,4 +70,8 @@ body {
 
 .game-info {
   margin-top: 20px;
+}
+
+.divide {
+  width: 100%;
 }

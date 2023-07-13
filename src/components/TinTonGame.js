@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Button from './Button';
 
 const blue = '#2185CB';
 const green = '#29B64C';
@@ -7,7 +6,6 @@ const red = '#E82A68';
 const yellow = '#EAC606';
 
 const TinTonGame = () => {
-  const colors = [blue, green, red, yellow];
   const [sequence, setSequence] = useState([]);
   const [playerSequence, setPlayerSequence] = useState([]);
   const [round, setRound] = useState(1);
@@ -22,7 +20,7 @@ const TinTonGame = () => {
 
   const generateSequence = () => {
     const nextButton = Math.floor(Math.random() * 4);
-    setSequence((prevSequence) => [...prevSequence, nextButton]);
+    setSequence(prevSequence => [...prevSequence, nextButton]);
   };
 
   const startGame = () => {
@@ -33,7 +31,7 @@ const TinTonGame = () => {
     setIsPlaying(true);
   };
 
-  const handleButtonClick = (buttonIndex) => {
+  const handleButtonClick = buttonIndex => {
     if (isPlaying) {
       const updatedPlayerSequence = [...playerSequence, buttonIndex];
       setPlayerSequence(updatedPlayerSequence);
@@ -43,7 +41,7 @@ const TinTonGame = () => {
         setMessage('Game Over! You clicked the wrong button.');
       } else if (updatedPlayerSequence.length === sequence.length) {
         setPlayerSequence([]);
-        setRound((prevRound) => prevRound + 1);
+        setRound(prevRound => prevRound + 1);
         setMessage(`Round ${round + 1}`);
         setTimeout(() => {
           generateSequence();
@@ -52,7 +50,7 @@ const TinTonGame = () => {
     }
   };
 
-  const checkSequence = (playerSequence) => {
+  const checkSequence = playerSequence => {
     for (let i = 0; i < playerSequence.length; i++) {
       if (playerSequence[i] !== sequence[i]) {
         return false;
@@ -64,17 +62,33 @@ const TinTonGame = () => {
   return (
     <div>
       <h1>TinTon</h1>
-      <p>sequence game</p>
+      <p>Sequence Game</p>
       <div className="game-board">
-        {colors.map((color, index) => (
-          <Button
-            key={index}
-            color={color}
-            isBlack={playerSequence.includes(index)}
-            onClick={() => handleButtonClick(index)}
-            disabled={!isPlaying}
-          />
-        ))}
+        <button
+          style={{ backgroundColor: blue }}
+          className={`color-button ${playerSequence.includes(0) ? 'black' : ''}`}
+          onClick={() => handleButtonClick(0)}
+          disabled={!isPlaying}
+        ></button>
+        <button
+          style={{ backgroundColor: green }}
+          className={`color-button ${playerSequence.includes(1) ? 'black' : ''}`}
+          onClick={() => handleButtonClick(1)}
+          disabled={!isPlaying}
+        ></button>
+        <span className='divide'></span>
+        <button
+          style={{ backgroundColor: red }}
+          className={`color-button ${playerSequence.includes(2) ? 'black' : ''}`}
+          onClick={() => handleButtonClick(2)}
+          disabled={!isPlaying}
+        ></button>
+        <button
+          style={{ backgroundColor: yellow }}
+          className={`color-button ${playerSequence.includes(3) ? 'black' : ''}`}
+          onClick={() => handleButtonClick(3)}
+          disabled={!isPlaying}
+        ></button>
       </div>
       <div className="game-info">
         <p>{message}</p>
