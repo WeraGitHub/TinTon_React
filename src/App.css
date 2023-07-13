@@ -36,3 +36,37 @@
     transform: rotate(360deg);
   }
 }
+
+
+body {
+  background-color: #FFF6F7;
+  text-align: center;
+  padding: 20px;
+}
+
+.game-board {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.color-button {
+  width: 80px;
+  height: 80px;
+  margin: 10px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.color-button.black {
+  background-color: black;
+}
+
+.color-button.purple {
+  background-color: purple;
+}
+
+.game-info {
+  margin-top: 20px;
+}
