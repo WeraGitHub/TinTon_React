@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Button from './Button';
 
+const blue = '#2185CB';
+const green = '#29B64C';
+const red = '#E82A68';
+const yellow = '#EAC606';
+
 const TinTonGame = () => {
-  const colors = ['red', 'green', 'blue', 'yellow'];
+  const colors = [blue, green, red, yellow];
   const [sequence, setSequence] = useState([]);
   const [playerSequence, setPlayerSequence] = useState([]);
   const [round, setRound] = useState(1);
