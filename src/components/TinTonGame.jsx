@@ -1,163 +1,135 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from "react";
 import GameButton from "./GameButton";
 
-const blue = '#2185CB';
-const green = '#29B64C';
-const red = '#E82A68';
-const yellow = '#EAC606';
+const colors = ["green", "red", "yellow", "blue"];
 
-const Game = () => {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [buttonColor, setButtonColor] = useState([blue, green, red, yellow]);
-  const [randomButtonIndex, setRandomButtonIndex] = useState(null);
+function TinTonGame() {
   const [sequence, setSequence] = useState([]);
-  const [round, setRound] = useState(1);
-  const [playerSequence, setPlayerSequence] = useState([]);
-  const [message, setMessage] = useState('');
+  const [playing, setPlaying] = useState(false);
+  const [playingIdx, setPlayingIdx] = useState(0);
+
+  const greenRef = useRef(null);
+  const redRef = useRef(null);
+  const yellowRef = useRef(null);
+  const blueRef = useRef(null);
+
+  const resetGame = () => {
+    setSequence([]);
+    setPlaying(false);
+    setPlayingIdx(0);
+  };
+
+  const addNewColor = () => {
+    const color = colors[Math.floor(Math.random() * 4)];
+    const newSequence = [...sequence, color];
+    setSequence(newSequence);
+  };
+
+  const handleNextLevel = () => {
+    if (!playing) {
+      setPlaying(true);
+      addNewColor();
+    }
+  };
+
+  const handleColorClick = (e) => {
+    if (playing) {
+      e.target.classList.add("opacity");
+
+      setTimeout(() => {
+        e.target.classList.remove("opacity");
+
+        const clickColor = e.target.getAttribute("color");
+
+        // clicked the correct color of the sequence
+        if (sequence[playingIdx] === clickColor) {
+          // clicked the last color of the sequence
+          if (playingIdx === sequence.length - 1) {
+            setTimeout(() => {
+              setPlayingIdx(0);
+              addNewColor();
+            }, 250);
+          }
+
+          // missing some colors of the sequence to be clicked
+          else {
+            setPlayingIdx(playingIdx + 1);
+          }
+        }
+
+        // clicked the incorrect color of the sequence
+        else {
+          resetGame();
+          // alert("You Lost!");
+        }
+      }, 250);
+    }
+  };
 
   useEffect(() => {
-    let timer;
-    if (isPlaying) {
-      if (round > 3) {
-        setIsPlaying(false);
+    if (sequence.length > 0) {
+      const showSequence = (idx = 0) => {
+        let ref = null;
 
-      } else if (randomButtonIndex !== null) {
-        timer = setTimeout(() => {
-          setButtonColor((prevColors) => {
-            const updatedColors = [...prevColors];
-            updatedColors[randomButtonIndex] = getColorByIndex(randomButtonIndex);
-            return updatedColors;
-          });
-          setRandomButtonIndex(null);
-          setRound((prevRound) => prevRound + 1);
-        }, 500);
-      } else {
-        timer = setTimeout(() => {
-          const newRandomButtonIndex = Math.floor(Math.random() * 4);
-          setButtonColor((prevColors) => {
-            const updatedColors = [...prevColors];
-            updatedColors[newRandomButtonIndex] = 'black';
-            return updatedColors;
-          });
-          setSequence((prevNumbers) => [...prevNumbers, newRandomButtonIndex]);
-          setRandomButtonIndex(newRandomButtonIndex);
-        }, 2000);
-      }
+        if (sequence[idx] === "green") ref = greenRef;
+        if (sequence[idx] === "red") ref = redRef;
+        if (sequence[idx] === "yellow") ref = yellowRef;
+        if (sequence[idx] === "blue") ref = blueRef;
+
+        // highlight the ref
+        setTimeout(() => {
+          ref.current.classList.add("opacity");
+
+          setTimeout(() => {
+            ref.current.classList.remove("opacity");
+            if (idx < sequence.length - 1) showSequence(idx + 1);
+          }, 250);
+        }, 250);
+      };
+
+      showSequence();
     }
-    return () => clearTimeout(timer);
-  }, [isPlaying, round, randomButtonIndex]);
-
-  const getColorByIndex = (index) => {
-    switch (index) {
-      case 0:
-        return blue;
-      case 1:
-        return green;
-      case 2:
-        return red;
-      case 3:
-        return yellow;
-      default:
-        return '';
-    }
-  };
-
-  const startGame = () => {
-    setIsPlaying(true);
-    const randomNumber = Math.floor(Math.random() * 4);
-    const updatedButtonColor = [blue, green, red, yellow];
-    updatedButtonColor[randomNumber] = 'black';
-    setButtonColor(updatedButtonColor);
-    setSequence([randomNumber]);
-    setRandomButtonIndex(randomNumber);
-    setRound(1);
-  };
-
-  const handleButtonClick = (buttonIndex) => {
-    console.log(buttonIndex);
-
-    setPlayerSequence((prevSequence) => [...prevSequence, buttonIndex]);
-
-    console.log(playerSequence);
-
-    if (!checkSequence(playerSequence)) {
-      setIsPlaying(false);
-      setMessage('Game Over! You clicked the wrong button.');
-    } else if (checkSequence(playerSequence) && playerSequence.length === sequence.length) {
-      setPlayerSequence([]);
-      setRound((prevRound) => prevRound + 1);
-      setMessage(`Round ${round}`);
-      // setTimeout(() => {
-      //   startNextRound();
-      // }, 1000);
-      // setMessage('You won!');
-    }
-
-    console.log(playerSequence);
-
-  };
-  
-  
-
-  const startNextRound = () => {
-    const newRandomButtonIndex = Math.floor(Math.random() * 4);
-    setButtonColor((prevColors) => {
-      const updatedColors = [...prevColors];
-      updatedColors[newRandomButtonIndex] = 'black';
-      return updatedColors;
-    });
-    setSequence((prevNumbers) => [...prevNumbers, newRandomButtonIndex]);
-    setRandomButtonIndex(newRandomButtonIndex);
-  };
-  
-
-  const checkSequence = (playerSequence) => {
-    for (let i = 0; i < playerSequence.length; i++) {
-      if (playerSequence[i] !== sequence[i]) {
-        return false;
-      }
-    }
-    return true;
-  };
- 
+  }, [sequence]);
 
   return (
     <div>
-      <h1>Color Game</h1>
-      <div className="game-board">
-        <button
-          style={{ backgroundColor: buttonColor[0] }}
-          className={`color-button ${!isPlaying ? 'pointer' : ''}`}
-          onClick={() => handleButtonClick(0)}
-        ></button>
-        <button
-          style={{ backgroundColor: buttonColor[1] }}
-          className={`color-button ${!isPlaying ? 'pointer' : ''}`}
-          onClick={() => handleButtonClick(1)}
-        ></button>
-        <span className="divide"></span>
-        <button
-          style={{ backgroundColor: buttonColor[2] }}
-          className={`color-button ${!isPlaying ? 'pointer' : ''}`}
-          onClick={() => handleButtonClick(2)}
-        ></button>
-        <button
-          style={{ backgroundColor: buttonColor[3] }}
-          className={`color-button ${!isPlaying ? 'pointer' : ''}`}
-          onClick={() => handleButtonClick(3)}
-        ></button>
+      <h1>TinTon</h1>
+      <p>Sequence Memory Game</p>
+      <div>
+      <GameButton
+          color="blue"
+          onClick={handleColorClick}
+          className="color-button blue"
+          // disabled={!playing}
+          ref={blueRef}
+        />
+        <GameButton
+          color="green"
+          onClick={handleColorClick}
+          className="color-button green"
+          ref={greenRef}
+        />
       </div>
-      <div className="game-info">
-        <p>{message}</p>
-        {!isPlaying && round <= 3 && (
-          <button className="start-button" onClick={startGame}>
-            Start
-          </button>
-        )}
-        {!isPlaying && round > 3 && <p>Your Turn</p>}
+      <div>
+        <GameButton
+          color="red"
+          onClick={handleColorClick}
+          className="color-button red"
+          ref={redRef}
+        />
+        <GameButton
+          color="yellow"
+          onClick={handleColorClick}
+          className="color-button yellow"
+          ref={yellowRef}
+        />
       </div>
+
+      <button onClick={handleNextLevel} >
+        {sequence.length === 0 ? "Play" : sequence.length}
+      </button>
     </div>
   );
-};
+}
 
-export default Game;
+export default TinTonGame;
