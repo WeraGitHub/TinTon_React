@@ -1,14 +1,13 @@
-import React from 'react';
+import React, { forwardRef } from "react";
 
-const Button = ({ color, isBlack, onClick, disabled }) => {
-  return (
-    <button
-      className={`color-button ${isBlack && 'black'}`}
-      style={{ backgroundColor: color }}
-      onClick={onClick}
-      disabled={disabled}
-    ></button>
-  );
-};
+const GameButton = forwardRef(({ color, className, onClick }, ref) => (
+  <button
+    className={className}
+    color={color}
+    onClick={onClick}
+    ref={ref}
+    // disabled={disabled}
+  />
+));
 
-export default Button;
+export default GameButton;
