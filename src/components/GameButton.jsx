@@ -1,6 +1,6 @@
 import React, { forwardRef } from "react";
 
-const GameButton = forwardRef(({ color, className, onClick }, ref) => (
+const GameButton = forwardRef(({ color, onClick, className }, ref,) => (
   <button
     className={className}
     color={color}
