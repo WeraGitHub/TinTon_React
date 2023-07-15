@@ -5,62 +5,60 @@ const colors = ["green", "red", "yellow", "blue"];
 
 function TinTonGame() {
   const [sequence, setSequence] = useState([]);
-  const [playing, setPlaying] = useState(false);
-  const [playingIdx, setPlayingIdx] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentColorIndex, setCurrentColorIndex] = useState(0);
 
-  const greenRef = useRef(null);
-  const redRef = useRef(null);
-  const yellowRef = useRef(null);
-  const blueRef = useRef(null);
+  const greenButtonRef = useRef(null);
+  const redButtonRef = useRef(null);
+  const yellowButtonRef = useRef(null);
+  const blueButtonRef = useRef(null);
 
-  const resetGame = () => {
+  const restartGame = () => {
     setSequence([]);
-    setPlaying(false);
-    setPlayingIdx(0);
+    setIsPlaying(false);
+    setCurrentColorIndex(0);
   };
 
-  const addNewColor = () => {
+  const addRandomColorToSequence = () => {
     const color = colors[Math.floor(Math.random() * 4)];
     const newSequence = [...sequence, color];
     setSequence(newSequence);
   };
 
   const handleNextLevel = () => {
-    if (!playing) {
-      setPlaying(true);
-      addNewColor();
+    if (!isPlaying) {
+      setIsPlaying(true);
+      addRandomColorToSequence();
     }
   };
 
-  const handleColorClick = (e) => {
-    if (playing) {
+  const handleColorButtonClick = (e) => {
+    if (isPlaying) {
       e.target.classList.add("opacity");
 
       setTimeout(() => {
         e.target.classList.remove("opacity");
 
-        const clickColor = e.target.getAttribute("color");
+        const clickButtonColor = e.target.getAttribute("color");
 
         // clicked the correct color of the sequence
-        if (sequence[playingIdx] === clickColor) {
-          // clicked the last color of the sequence
-          if (playingIdx === sequence.length - 1) {
+        if (sequence[currentColorIndex] === clickButtonColor) {
+          // if it's all the sequence done - all the required clicks
+          if (currentColorIndex === sequence.length - 1) {
             setTimeout(() => {
-              setPlayingIdx(0);
-              addNewColor();
+              setCurrentColorIndex(0);
+              addRandomColorToSequence();
             }, 250);
           }
-
-          // missing some colors of the sequence to be clicked
+          // otherwise still waiting for more clicks so increment ids
           else {
-            setPlayingIdx(playingIdx + 1);
+            setCurrentColorIndex(currentColorIndex + 1);
           }
         }
-
-        // clicked the incorrect color of the sequence
+        // or failed:
         else {
-          resetGame();
-          // alert("You Lost!");
+          //add a message to highlight the loosership
+          restartGame();
         }
       }, 250);
     }
@@ -71,12 +69,12 @@ function TinTonGame() {
       const showSequence = (idx = 0) => {
         let ref = null;
 
-        if (sequence[idx] === "green") ref = greenRef;
-        if (sequence[idx] === "red") ref = redRef;
-        if (sequence[idx] === "yellow") ref = yellowRef;
-        if (sequence[idx] === "blue") ref = blueRef;
+        if (sequence[idx] === "green") ref = greenButtonRef;
+        if (sequence[idx] === "red") ref = redButtonRef;
+        if (sequence[idx] === "yellow") ref = yellowButtonRef;
+        if (sequence[idx] === "blue") ref = blueButtonRef;
 
-        // highlight the ref
+        // highlight the ref button
         setTimeout(() => {
           ref.current.classList.add("opacity");
 
@@ -98,30 +96,30 @@ function TinTonGame() {
       <div>
       <GameButton
           color="blue"
-          onClick={handleColorClick}
+          onClick={handleColorButtonClick}
           className="color-button blue"
-          // disabled={!playing}
-          ref={blueRef}
+          // disabled={!isPlaying}
+          ref={blueButtonRef}
         />
         <GameButton
           color="green"
-          onClick={handleColorClick}
+          onClick={handleColorButtonClick}
           className="color-button green"
-          ref={greenRef}
+          ref={greenButtonRef}
         />
       </div>
       <div>
         <GameButton
           color="red"
-          onClick={handleColorClick}
+          onClick={handleColorButtonClick}
           className="color-button red"
-          ref={redRef}
+          ref={redButtonRef}
         />
         <GameButton
           color="yellow"
-          onClick={handleColorClick}
+          onClick={handleColorButtonClick}
           className="color-button yellow"
-          ref={yellowRef}
+          ref={yellowButtonRef}
         />
       </div>
 
