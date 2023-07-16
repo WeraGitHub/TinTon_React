@@ -112,42 +112,56 @@ function TinTonGame() {
 
   return (
     <div>
-      <h1>TinTon</h1>
-      <p>Sequence Memory Game</p>
-      <p>{sequence.length <= 1 ? "🐶" : `Score: ${sequence.length-1} `}</p>
-      <div>
-        {/* Render the color buttons */}
-        <GameButton
-          color="blue"
-          onClick={handleColorButtonClick}
-          className="color-button blue"
-          // disabled={!isPlaying}
-          ref={blueButtonRef}
-        />
-        <GameButton
-          color="green"
-          onClick={handleColorButtonClick}
-          className="color-button green"
-          ref={greenButtonRef}
-        />
-      </div>
-      <div>
-        <GameButton
-          color="red"
-          onClick={handleColorButtonClick}
-          className="color-button red"
-          ref={redButtonRef}
-        />
-        <GameButton
-          color="yellow"
-          onClick={handleColorButtonClick}
-          className="color-button yellow"
-          ref={yellowButtonRef}
-        />
+      <div className="header">
+        <div className="header-title">
+          <h1>TinTon</h1>
+          <p>Sequence Memory Game</p>
+        </div>
       </div>
 
-      {sequence.length === 0 ? (<button onClick={handleStart}>Start</button>) : ""}
-      <p>{message}</p>
+      <div className="score-info">
+        <p>{sequence.length <= 1 ? "🐶" : `Score: ${sequence.length-1} `}</p>
+      </div>      
+      
+      <div className="game-board">
+        <div>
+          {/* Render the color buttons */}
+          <GameButton
+            color="blue"
+            onClick={handleColorButtonClick}
+            className="game-button blue"
+            // disabled={!isPlaying}
+            ref={blueButtonRef}
+          />
+          <GameButton
+            color="green"
+            onClick={handleColorButtonClick}
+            className="game-button green"
+            ref={greenButtonRef}
+          />
+        </div>
+        <div>
+          <GameButton
+            color="red"
+            onClick={handleColorButtonClick}
+            className="game-button red"
+            ref={redButtonRef}
+          />
+          <GameButton
+            color="yellow"
+            onClick={handleColorButtonClick}
+            className="game-button yellow"
+            ref={yellowButtonRef}
+          />
+        </div>
+      </div>
+
+      {sequence.length === 0 ? (<button onClick={handleStart} className="start-button">Start</button>) : ""}
+
+      <div className="message">
+        <p>{message}</p>
+      </div>      
+      
     </div>
   );
 }
