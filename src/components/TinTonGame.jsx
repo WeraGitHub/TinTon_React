@@ -31,8 +31,8 @@ function TinTonGame() {
     setSequence(newSequence);
   };
 
-  // Function to handle the "Next Level" button click
-  const handleNextLevel = () => {
+  // Start the game!
+  const handleStart = () => {
     if (!isPlaying) {
       setIsPlaying(true);
       addRandomColorToSequence();
@@ -108,6 +108,7 @@ function TinTonGame() {
     <div>
       <h1>TinTon</h1>
       <p>Sequence Memory Game</p>
+      <p>{sequence.length <= 1 ? "🐶" : `Score: ${sequence.length-1} `}</p>
       <div>
         {/* Render the color buttons */}
         <GameButton
@@ -139,10 +140,7 @@ function TinTonGame() {
         />
       </div>
 
-      {/* Render the "Next Level" button */}
-      <button onClick={handleNextLevel}>
-        {sequence.length === 0 ? "Play" : sequence.length}
-      </button>
+      {sequence.length === 0 ? (<button onClick={handleStart}>Start</button>) : ""}
     </div>
   );
 }
