@@ -12,6 +12,9 @@ function TinTonGame() {
   const [currentColorIndex, setCurrentColorIndex] = useState(0);
   // state for message to display when it's players turn or when it's game over
   const [message, setMessage] = useState('');
+  // State to determine if the sequence is being shown or not
+  const [isShowingSequence, setIsShowingSequence] = useState(false);
+
 
   // Refs for each color button to access the DOM element
   const greenButtonRef = useRef(null);
@@ -20,7 +23,7 @@ function TinTonGame() {
   const blueButtonRef = useRef(null);
 
   // Function to restart the game
-  const restartGame = () => {
+  const resetGame = () => {
     setSequence([]);
     setIsPlaying(false);
     setCurrentColorIndex(0);
@@ -71,16 +74,18 @@ function TinTonGame() {
         // or failed:
         else {
           setMessage(`Game Over! You clicked the wrong button. Your score is: ${sequence.length - 1}`);
-          restartGame();
+          resetGame();
         }
       }, 250);
     }
   };
 
   useEffect(() => {
+    setIsShowingSequence(true);
     if (sequence.length > 0) {
       // Function to show the sequence of colors
       const showSequence = (idx = 0) => {
+        
         let ref = null;
 
         // Set the ref based on the color in the sequence
@@ -97,10 +102,13 @@ function TinTonGame() {
             // Remove the temporary opacity class after a delay
             ref.current.classList.remove("opacity");
             // If there are more colors in the sequence, show the next one
-            if (idx < sequence.length - 1) showSequence(idx + 1);
-            else setMessage("Your turn");
+            if (idx < sequence.length - 1) {
+              showSequence(idx + 1);
+            } else {
+              setMessage("Your turn");
+              setIsShowingSequence(false);
+            }
           }, 250);
-
           
         }, 250);
       };
@@ -130,13 +138,14 @@ function TinTonGame() {
             color="blue"
             onClick={handleColorButtonClick}
             className="game-button blue"
-            // disabled={!isPlaying}
+            disabled={isShowingSequence}
             ref={blueButtonRef}
           />
           <GameButton
             color="green"
             onClick={handleColorButtonClick}
             className="game-button green"
+            disabled={isShowingSequence}
             ref={greenButtonRef}
           />
         </div>
@@ -145,12 +154,14 @@ function TinTonGame() {
             color="red"
             onClick={handleColorButtonClick}
             className="game-button red"
+            disabled={isShowingSequence}
             ref={redButtonRef}
           />
           <GameButton
             color="yellow"
             onClick={handleColorButtonClick}
             className="game-button yellow"
+            disabled={isShowingSequence}
             ref={yellowButtonRef}
           />
         </div>
