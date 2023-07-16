@@ -10,6 +10,8 @@ function TinTonGame() {
   const [isPlaying, setIsPlaying] = useState(false);
   // State to keep track of the index of the current color to click
   const [currentColorIndex, setCurrentColorIndex] = useState(0);
+  // state for message to display when it's players turn or when it's game over
+  const [message, setMessage] = useState('');
 
   // Refs for each color button to access the DOM element
   const greenButtonRef = useRef(null);
@@ -42,6 +44,7 @@ function TinTonGame() {
   // Function to handle the color button click
   const handleColorButtonClick = (e) => {
     if (isPlaying) {
+      setMessage("");
       // Add a temporary opacity class for visual feedback
       e.target.classList.add("opacity");
 
@@ -67,7 +70,7 @@ function TinTonGame() {
         }
         // or failed:
         else {
-          //add a message to highlight the loosership
+          setMessage(`Game Over! You clicked the wrong button. Your score is: ${sequence.length - 1}`);
           restartGame();
         }
       }, 250);
@@ -95,7 +98,10 @@ function TinTonGame() {
             ref.current.classList.remove("opacity");
             // If there are more colors in the sequence, show the next one
             if (idx < sequence.length - 1) showSequence(idx + 1);
+            else setMessage("Your turn");
           }, 250);
+
+          
         }, 250);
       };
 
@@ -141,6 +147,7 @@ function TinTonGame() {
       </div>
 
       {sequence.length === 0 ? (<button onClick={handleStart}>Start</button>) : ""}
+      <p>{message}</p>
     </div>
   );
 }
