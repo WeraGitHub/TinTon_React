@@ -124,7 +124,7 @@ function TinTonGame() {
       <Header />
 
       <div className="score-info">
-        <p>{sequence.length <= 1 ? "🐶" : `Score: ${sequence.length-1} `}</p>
+        <p>{sequence.length <= 1 ? "🐶🐶🐶🐶🐶" : `🐶 Score: ${sequence.length-1} 🐶`}</p>
       </div>      
       
       <div className="game-board">
