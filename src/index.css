@@ -15,15 +15,16 @@ body {
 .header{
   height: 100px;
   background-color: #C7BEE2;
-  padding: 35px;
+  padding: 34px;
 }
 .header-title {
   background-color: #EEEDFF;
-  height: 75px;
-  width: 300px;
+  height: 70px;
+  width: 335px;
   border-radius: 15px;
   margin: 0 auto;
-  padding: 15px;
+  padding-top: 16px;
+  padding-bottom: 14px;
 }
 .header-title h1 {
   font-size: 30px;
@@ -35,8 +36,8 @@ body {
 }
 
 .game-button {
-  width: 180px;
-  height: 180px;
+  width: 160px;
+  height: 160px;
   margin: 10px;
   border: none;
   outline: none;
