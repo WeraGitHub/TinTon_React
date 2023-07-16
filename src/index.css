@@ -1,6 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
+
 * {
   padding: 0;
   margin: 0;
+  font-family: 'Lato', sans-serif;
+  color: #3F3951;
 }
 
 body {
@@ -9,8 +13,25 @@ body {
 }
 
 .header{
-  height: 150px;
+  height: 100px;
   background-color: #C7BEE2;
+  padding: 35px;
+}
+.header-title {
+  background-color: #EEEDFF;
+  height: 75px;
+  width: 300px;
+  border-radius: 15px;
+  margin: 0 auto;
+  padding: 15px;
+}
+.header-title h1 {
+  font-size: 30px;
+}
+.header-title p {
+  font-size: 17px;
+  font-weight: 700;
+  padding-top: 7px;
 }
 
 .game-button {
