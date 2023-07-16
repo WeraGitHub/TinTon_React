@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import Header from "./Header";
 import GameButton from "./GameButton";
 
 const colors = ["green", "red", "yellow", "blue"];
@@ -120,12 +121,7 @@ function TinTonGame() {
 
   return (
     <div>
-      <div className="header">
-        <div className="header-title">
-          <h1>TinTon</h1>
-          <p>Sequence Memory Game</p>
-        </div>
-      </div>
+      <Header />
 
       <div className="score-info">
         <p>{sequence.length <= 1 ? "🐶" : `Score: ${sequence.length-1} `}</p>
