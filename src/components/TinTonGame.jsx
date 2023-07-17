@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import Header from "./Header";
 import GameButton from "./GameButton";
 import Score from "./Score";
+import Message from "./Message";
 
 const colors = ["green", "red", "yellow", "blue"];
 
@@ -164,9 +165,7 @@ function TinTonGame() {
 
       {sequence.length === 0 ? (<button onClick={handleStart} className="start-button">Start</button>) : ""}
 
-      <div className="message">
-        <p>{message}</p>
-      </div>      
+      <Message message={message}/>
       
     </div>
   );
