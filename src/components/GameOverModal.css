@@ -1,4 +1,4 @@
-.modal-mask {
+.game-over-modal-mask {
     background-color: rgba(255, 255, 255, 0.369);
     width: 100%;
     height: 380px;
@@ -9,8 +9,8 @@
     z-index: 10;
 }
 
-.modal {
-    background-color: #ff8d8d;
+.game-over-modal {
+    background-color: #C7BEE2;
     width: 256px;
     border-radius: 15px;
     margin: 0 auto;
@@ -20,7 +20,7 @@
 .message-area {
     width: 180px;
     margin: 10px auto 40px;
-    background-color: #feb1b1;
+    background-color: #EEEDFF;
     font-size: 19px;
     padding: 25px;
     border-radius: 15px;
@@ -31,9 +31,9 @@
     padding: 10px 0;
 }
 
-.start-button {
+.game-over-start-button {
     color: black;
-    background-color: #ff6161;
+    background-color: #a390dd;
     text-transform:none;
     border: none;
     font-size: 26px;
