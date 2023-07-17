@@ -3,6 +3,7 @@ import Header from "./Header";
 import GameButton from "./GameButton";
 import Score from "./Score";
 import Message from "./Message";
+import StartButton from "./StartButton";
 
 const colors = ["green", "red", "yellow", "blue"];
 
@@ -163,7 +164,8 @@ function TinTonGame() {
         </div>
       </div>
 
-      {sequence.length === 0 ? (<button onClick={handleStart} className="start-button">Start</button>) : ""}
+      {/* show Start button only when the game is over or haven't started yet */}
+      {isPlaying == false ? (<StartButton onClick={handleStart} />) : ""}
 
       <Message message={message}/>
       
