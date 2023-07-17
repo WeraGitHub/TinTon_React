@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import "./TinTonGame.css";
 import Header from "./Header";
 import GameButton from "./GameButton";
 import Score from "./Score";
@@ -165,7 +166,7 @@ function TinTonGame() {
       </div>
 
       {/* show Start button only when the game is over or haven't started yet */}
-      {isPlaying == false ? (<StartButton onClick={handleStart} />) : ""}
+      {isPlaying === false ? (<StartButton onClick={handleStart} />) : ""}
 
       <Message message={message}/>
       

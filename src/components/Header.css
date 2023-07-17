@@ -1,0 +1,21 @@
+.header{
+    height: 102px;
+    background-color: #C7BEE2;
+    padding: 34px;
+  }
+  .header-title {
+    background-color: #EEEDFF;
+    height: 105px;
+    width: 335px;
+    border-radius: 15px;
+    margin: 0 auto;
+  }
+  .header-title h1 {
+    padding-top: 16px;
+    font-size: 36px;
+  }
+  .header-title p {
+    font-size: 19px;
+    padding-top: 7px;
+    padding-bottom: 14px;
+  }

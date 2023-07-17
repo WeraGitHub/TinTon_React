@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+  font-family: 'Lato', sans-serif;
+  color: #3F3951;
+  font-weight: 700;
+}
+
+body {
+  background-color: #FFF6F7;
+  text-align: center;
+}
+
+.game-board {
+  height: 380px;
+  padding: 10px;
+}

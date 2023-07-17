@@ -1,4 +1,5 @@
 import React, { forwardRef } from "react";
+import "./GameButton.css";
 
 const GameButton = forwardRef(({ color, onClick, className, disabled }, ref,) => (
   <button
