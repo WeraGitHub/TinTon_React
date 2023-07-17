@@ -10,8 +10,7 @@
 }
 
 .modal {
-    background-color: #FFB88F;
-    /* height: 260px; */
+    background-color: #ff8d8d;
     width: 256px;
     border-radius: 15px;
     margin: 0 auto;
@@ -21,17 +20,21 @@
 .message-area {
     width: 180px;
     margin: 10px auto 40px;
-    background-color: #FFD6BF;
+    background-color: #feb1b1;
     font-size: 19px;
     padding: 25px;
     border-radius: 15px;
-    text-align: left;
+}
+
+.small-p {
+    font-size: 15px;
+    padding: 10px 0;
 }
 
 .start-button {
     color: black;
-    background-color: #FF9052;
-    text-transform: uppercase;
+    background-color: #ff6161;
+    text-transform:none;
     border: none;
     font-size: 26px;
     padding: 14px 30px;

@@ -176,8 +176,9 @@ function TinTonGame() {
       </div>
 
       {/* show Start button only when the haven't started yet */}
-      {!isPlaying && isFreshStart ? (<StartButtonArea onClick={handleStart} setName={setName}/>) : ""}
-      {!isPlaying && !isFreshStart ? (<GameOverModal onClick={handleStart} name={name} score={score}/>) : ""}
+      {!isPlaying && isFreshStart && <StartButtonArea onClick={handleStart} setName={setName}/>}
+      {/* show Game Over with option to start again */}
+      {!isPlaying && !isFreshStart && <GameOverModal onClick={handleStart} name={name} score={score}/>}
       <Message message={nudge}/>
       
     </div>
