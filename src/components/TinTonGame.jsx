@@ -4,7 +4,8 @@ import Header from "./Header";
 import GameButton from "./GameButton";
 import Score from "./Score";
 import Message from "./Message";
-import StartButton from "./StartButton";
+import StartButtonArea from "./StartButtonArea";
+import GameOverModal from "./GameOverModal";
 
 const colors = ["green", "red", "yellow", "blue"];
 
@@ -15,10 +16,16 @@ function TinTonGame() {
   const [isPlaying, setIsPlaying] = useState(false);
   // State to keep track of the index of the current color to click
   const [currentColorIndex, setCurrentColorIndex] = useState(0);
-  // state for message to display when it's players turn or when it's game over
-  const [message, setMessage] = useState('');
+    // state for message to display when it's players turn 
+  const [nudge, setNudge] = useState('');
   // State to determine if the sequence is being shown or not
   const [isShowingSequence, setIsShowingSequence] = useState(false);
+  // players name
+  const [name, setName] = useState('');
+  // played before or is it the very first time?
+  const [isFreshStart, setIsFreshStart] = useState(true);
+  // score
+  const [score, setScore] = useState(0);
 
 
   // Refs for each color button to access the DOM element
@@ -46,13 +53,14 @@ function TinTonGame() {
     if (!isPlaying) {
       setIsPlaying(true);
       addRandomColorToSequence();
+      setIsFreshStart(false);
     }
   };
 
   // Function to handle the color button click
   const handleColorButtonClick = (e) => {
     if (isPlaying) {
-      setMessage("");
+      setNudge("");
       // Add a temporary opacity class for visual feedback
       e.target.classList.add("opacity");
 
@@ -78,7 +86,9 @@ function TinTonGame() {
         }
         // or failed:
         else {
-          setMessage(`Game Over! You clicked the wrong button. Your score is: ${sequence.length - 1}`);
+          if ( sequence.length > 0 ){
+            setScore(sequence.length-1);
+          } 
           resetGame();
         }
       }, 250);
@@ -110,7 +120,7 @@ function TinTonGame() {
             if (idx < sequence.length - 1) {
               showSequence(idx + 1);
             } else {
-              setMessage("Your turn");
+              setNudge("Your turn");
               setIsShowingSequence(false);
             }
           }, 250);
@@ -165,10 +175,10 @@ function TinTonGame() {
         </div>
       </div>
 
-      {/* show Start button only when the game is over or haven't started yet */}
-      {isPlaying === false ? (<StartButton onClick={handleStart} />) : ""}
-
-      <Message message={message}/>
+      {/* show Start button only when the haven't started yet */}
+      {!isPlaying && isFreshStart ? (<StartButtonArea onClick={handleStart} setName={setName}/>) : ""}
+      {!isPlaying && !isFreshStart ? (<GameOverModal onClick={handleStart} name={name} score={score}/>) : ""}
+      <Message message={nudge}/>
       
     </div>
   );
