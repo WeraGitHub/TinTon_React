@@ -51,10 +51,8 @@ function TinTonGame() {
   const scoreBoard = () => {  
     if (showScoreBoard) {
       setShowScoreBoard(false);
-      setNudge("set to false")
     } else {
       setShowScoreBoard(true);
-      setNudge("set to true")
     }
   };
 
