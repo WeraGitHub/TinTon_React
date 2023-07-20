@@ -31,15 +31,30 @@
     padding: 10px 0;
 }
 
+.game-over-start-button, .game-over-scores-button {
+    border: none;
+    border-radius: 12px;    
+    cursor: pointer;
+    margin-bottom: 27px;
+}
+
+.game-over-start-button:hover, .game-over-scores-button:hover {
+    background: #987de7;
+}
+
 .game-over-start-button {
     color: black;
     background-color: #a390dd;
     text-transform:none;
-    border: none;
     font-size: 26px;
     padding: 14px 30px;
-    border-radius: 12px;
     letter-spacing: 1px;
-    cursor: pointer;
-    margin-bottom: 27px;
+}
+
+.game-over-scores-button {
+    color: rgba(0, 0, 0, 0.854);
+    background-color: #a390dda3;
+    text-transform:capitalize;    
+    font-size: 18px;
+    padding: 12px 25px;
 }

@@ -13,6 +13,9 @@ const GameOverModal = ({ onClick, name, score }) => (
       <button className="game-over-start-button" onClick={onClick}>
         Start again?
       </button>
+      <button className="game-over-scores-button" onClick={onClick}>
+        Highscores
+      </button>
     </div>
   </div>
 );
