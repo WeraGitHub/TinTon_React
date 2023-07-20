@@ -3,7 +3,7 @@ import "./TinTonGame.css";
 import Header from "./Header";
 import GameButton from "./GameButton";
 import Score from "./Score";
-import Message from "./Message";
+import Nudge from "./Nudge";
 import StartButtonArea from "./StartButtonArea";
 import GameOverModal from "./GameOverModal";
 
@@ -18,6 +18,7 @@ function TinTonGame() {
   const [currentColorIndex, setCurrentColorIndex] = useState(0);
     // state for message to display when it's players turn 
   const [nudge, setNudge] = useState('');
+  const [isNudgeTime, setIsNudgeTime] = useState(false);
   // State to determine if the sequence is being shown or not
   const [isShowingSequence, setIsShowingSequence] = useState(false);
   // players name
@@ -61,6 +62,7 @@ function TinTonGame() {
   const handleColorButtonClick = (e) => {
     if (isPlaying) {
       setNudge("");
+      setIsNudgeTime(false);
       // Add a temporary opacity class for visual feedback
       e.target.classList.add("opacity");
 
@@ -121,6 +123,7 @@ function TinTonGame() {
               showSequence(idx + 1);
             } else {
               setNudge("Your turn");
+              setIsNudgeTime(true);
               setIsShowingSequence(false);
             }
           }, 250);
@@ -179,7 +182,8 @@ function TinTonGame() {
       {!isPlaying && isFreshStart && <StartButtonArea onClick={handleStart} setName={setName}/>}
       {/* show Game Over with option to start again */}
       {!isPlaying && !isFreshStart && <GameOverModal onClick={handleStart} name={name} score={score}/>}
-      <Message message={nudge}/>
+      <Nudge nudge={nudge}/>
+      {isNudgeTime && <Nudge nudge={"It's your turn"}/>}
       
     </div>
   );
