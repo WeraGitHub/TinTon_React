@@ -36,15 +36,31 @@
     width: 170px;
 }
 
+.start-button, .scores-button {
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    margin-bottom: 27px;
+    display: inline-block;
+}
+
+.start-button:hover, .scores-button:hover {
+    background: #ff843c;
+}
+
 .start-button {
     color: black;
     background-color: #FF9052;
-    text-transform: uppercase;
-    border: none;
+    text-transform: uppercase;    
     font-size: 26px;
     padding: 14px 30px;
-    border-radius: 12px;
     letter-spacing: 1px;
-    cursor: pointer;
-    margin-bottom: 27px;
+}
+
+.scores-button {
+    color: rgba(0, 0, 0, 0.854);
+    background-color: #ff9452a3;
+    text-transform: capitalize;
+    font-size: 18px;
+    padding: 12px 25px;
 }

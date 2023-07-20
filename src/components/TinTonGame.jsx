@@ -4,7 +4,7 @@ import Header from "./Header";
 import GameButton from "./GameButton";
 import Score from "./Score";
 import Nudge from "./Nudge";
-import StartButtonArea from "./StartButtonArea";
+import StartModal from "./StartModal";
 import GameOverModal from "./GameOverModal";
 
 const colors = ["green", "red", "yellow", "blue"];
@@ -176,7 +176,7 @@ function TinTonGame() {
       </div>
 
       {/* show Start button only when the haven't started yet */}
-      {!isPlaying && isFreshStart && <StartButtonArea onClick={handleStart} setName={setName}/>}
+      {!isPlaying && isFreshStart && <StartModal onClick={handleStart} setName={setName}/>}
       {/* show Game Over with option to start again */}
       {!isPlaying && !isFreshStart && <GameOverModal onClick={handleStart} name={name} score={score}/>}
       <Nudge nudge={nudge}/>

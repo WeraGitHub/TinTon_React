@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
-import "./StartButtonArea.css";
+import "./StartModal.css";
 
-const StartButtonArea = ({ onClick, setName }) => {
+const StartModal = ({ onClick, setName }) => {
   const nameInputRef = useRef(null);
 
   const handleStartClick = () => {
@@ -20,9 +20,12 @@ const StartButtonArea = ({ onClick, setName }) => {
         <button className="start-button" onClick={handleStartClick}>
           Start
         </button>
+        <button className="scores-button" onClick={handleStartClick}>
+          Highscores
+        </button>
       </div>
     </div>
   );
 };
 
-export default StartButtonArea;
+export default StartModal;
