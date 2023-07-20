@@ -1,28 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import "./Nudge.css";
 
 const Nudge = ({ nudge }) => {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setVisible(false);
-    }, 500); // 500ms (half a second)
+    if (nudge) {
+      setVisible(true);
 
-    // Cleanup the timer on unmount to avoid potential memory leaks
-    return () => clearTimeout(timer);
-  }, []);
+      // After 1.5 seconds (1500ms), hide the Nudge component
+      const timer = setTimeout(() => {
+        setVisible(false);
+      }, 1500);
 
-  return (
-    <div className={`nudge-modal-container ${visible ? 'visible' : ''}`}>
+      // Cleanup the timer on component unmount
+      return () => clearTimeout(timer);
+    }
+  }, [nudge]);
+
+  return visible ? (
+    <div className="nudge-modal-container">
       <div className="nudge-modal">
-        <p>{nudge}</p>
+        {nudge}
       </div>
-    </div> 
-  );
+    </div>
+  ) : null;
 };
 
 export default Nudge;
+
 
 
 // (

@@ -4,20 +4,17 @@
     position: fixed;
     top: 325px;
     text-align: center;
-    z-index: 11;
     opacity: 0;
     transition: opacity 1s; 
 }
 .visible {
     opacity: 1;
-    z-index: -1;
 }
 
 .nudge-modal {
     background-color: #EEEDFF;
     width: fit-content;
     padding: 40px;
-    /* border-radius: 15px; */
     margin: 0 auto;
     border: 20px solid #C7BEE2;
     font-size: 19px;

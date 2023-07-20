@@ -9,6 +9,10 @@ import GameOverModal from "./GameOverModal";
 
 const colors = ["green", "red", "yellow", "blue"];
 
+const renderNudge = (message) => {
+  return <Nudge nudge={message} />;
+};
+
 function TinTonGame() {
   // State for the sequence of colors to remember
   const [sequence, setSequence] = useState([]);
@@ -122,7 +126,8 @@ function TinTonGame() {
             if (idx < sequence.length - 1) {
               showSequence(idx + 1);
             } else {
-              setNudge("Your turn");
+              // setNudge("Your turn");
+              renderNudge("Your turn");
               setIsNudgeTime(true);
               setIsShowingSequence(false);
             }
@@ -182,9 +187,10 @@ function TinTonGame() {
       {!isPlaying && isFreshStart && <StartButtonArea onClick={handleStart} setName={setName}/>}
       {/* show Game Over with option to start again */}
       {!isPlaying && !isFreshStart && <GameOverModal onClick={handleStart} name={name} score={score}/>}
-      <Nudge nudge={nudge}/>
-      {isNudgeTime && <Nudge nudge={"It's your turn"}/>}
+      {/* <Nudge nudge={nudge}/> */}
+      {/* {isNudgeTime && <Nudge nudge={"It's your turn"}/>} */}
       
+      {isNudgeTime && renderNudge("It's your turn")}
     </div>
   );
 }
