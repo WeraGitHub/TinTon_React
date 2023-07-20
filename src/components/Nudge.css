@@ -1,21 +1,3 @@
-.nudge-modal-container {
-    width: 100%;
-    height: 100px;
-    position: fixed;
-    top: 325px;
-    text-align: center;
-    opacity: 0;
-    transition: opacity 1s; 
-}
-.visible {
-    opacity: 1;
-}
-
-.nudge-modal {
-    background-color: #EEEDFF;
-    width: fit-content;
-    padding: 40px;
-    margin: 0 auto;
-    border: 20px solid #C7BEE2;
+.nudge-container {
     font-size: 19px;
-}
+  }

@@ -120,7 +120,7 @@ function TinTonGame() {
             if (idx < sequence.length - 1) {
               showSequence(idx + 1);
             } else {
-              setNudge("Your turn!");
+              setNudge("👉 Your turn! 👈");
               setIsShowingSequence(false);
             }
           }, 250);
