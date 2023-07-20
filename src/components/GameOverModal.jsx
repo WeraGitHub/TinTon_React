@@ -1,7 +1,7 @@
 import React from "react";
 import "./GameOverModal.css";
 
-const GameOverModal = ({ onClick, name, score }) => (
+const GameOverModal = ({ onClick, scoreBoard, name, score }) => (
   <div className="game-over-modal-mask">
     <div className="game-over-modal">
       <div className="message-area">
@@ -13,7 +13,7 @@ const GameOverModal = ({ onClick, name, score }) => (
       <button className="game-over-start-button" onClick={onClick}>
         Start again?
       </button>
-      <button className="game-over-scores-button" onClick={onClick}>
+      <button className="game-over-scores-button" onClick={scoreBoard}>
         Highscores
       </button>
     </div>

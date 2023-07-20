@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import "./StartModal.css";
 
-const StartModal = ({ onClick, setName }) => {
+const StartModal = ({ onClick, scoreBoard, setName }) => {
   const nameInputRef = useRef(null);
 
   const handleStartClick = () => {
@@ -20,7 +20,7 @@ const StartModal = ({ onClick, setName }) => {
         <button className="start-button" onClick={handleStartClick}>
           Start
         </button>
-        <button className="scores-button" onClick={handleStartClick}>
+        <button className="scores-button" onClick={scoreBoard}>
           Highscores
         </button>
       </div>
