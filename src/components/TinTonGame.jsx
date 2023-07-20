@@ -6,27 +6,20 @@ import Score from "./Score";
 import Nudge from "./Nudge";
 import StartModal from "./StartModal";
 import GameOverModal from "./GameOverModal";
+import ScoreBoard from "./ScoreBoard";
 
 const colors = ["green", "red", "yellow", "blue"];
 
 function TinTonGame() {
-  // State for the sequence of colors to remember
-  const [sequence, setSequence] = useState([]);
-  // State to control the game's playing status
-  const [isPlaying, setIsPlaying] = useState(false);
-  // State to keep track of the index of the current color to click
-  const [currentColorIndex, setCurrentColorIndex] = useState(0);
-    // state for message to display when it's players turn 
-  const [nudge, setNudge] = useState('');
-  // State to determine if the sequence is being shown or not
-  const [isShowingSequence, setIsShowingSequence] = useState(false);
-  // players name
-  const [name, setName] = useState('');
-  // played before or is it the very first time?
-  const [isFreshStart, setIsFreshStart] = useState(true);
-  // score
+  const [sequence, setSequence] = useState([]);  // State for the sequence of colors to remember
+  const [isPlaying, setIsPlaying] = useState(false);  // State to control the game's playing status  
+  const [currentColorIndex, setCurrentColorIndex] = useState(0);  // State to keep track of the index of the current color to click
+  const [nudge, setNudge] = useState('');  // state for message to display when it's players turn   
+  const [isShowingSequence, setIsShowingSequence] = useState(false);// State to determine if the sequence is being shown or not
+  const [name, setName] = useState('');  // player's name  
+  const [isFreshStart, setIsFreshStart] = useState(true);  // played before or is it the very first time?
   const [score, setScore] = useState(0);
-
+  const [showScoreBoard, setShowScoreBoard] = useState(false);
 
   // Refs for each color button to access the DOM element
   const greenButtonRef = useRef(null);
@@ -34,14 +27,12 @@ function TinTonGame() {
   const yellowButtonRef = useRef(null);
   const blueButtonRef = useRef(null);
 
-  // Function to restart the game
   const resetGame = () => {
     setSequence([]);
     setIsPlaying(false);
     setCurrentColorIndex(0);
   };
 
-  // Function to add a random color to the sequence
   const addRandomColorToSequence = () => {
     const color = colors[Math.floor(Math.random() * 4)];
     const newSequence = [...sequence, color];
@@ -57,7 +48,16 @@ function TinTonGame() {
     }
   };
 
-  // Function to handle the color button click
+  const scoreBoard = () => {  
+    if (showScoreBoard) {
+      setShowScoreBoard(false);
+      setNudge("set to false")
+    } else {
+      setShowScoreBoard(true);
+      setNudge("set to true")
+    }
+  };
+
   const handleColorButtonClick = (e) => {
     if (isPlaying) {
       // Add a temporary opacity class for visual feedback
@@ -99,10 +99,8 @@ function TinTonGame() {
     setIsShowingSequence(true);
     if (sequence.length > 0) {
       // Function to show the sequence of colors
-      const showSequence = (idx = 0) => {
-        
+      const showSequence = (idx = 0) => {        
         let ref = null;
-
         // Set the ref based on the color in the sequence
         if (sequence[idx] === "green") ref = greenButtonRef;
         if (sequence[idx] === "red") ref = redButtonRef;
@@ -141,7 +139,6 @@ function TinTonGame() {
       
       <div className="game-board">
         <div>
-          {/* Render the color buttons */}
           <GameButton
             color="blue"
             onClick={handleColorButtonClick}
@@ -151,7 +148,7 @@ function TinTonGame() {
           />
           <GameButton
             color="green"
-            onClick={handleColorButtonClick}
+            onClick={handleColorButtonClick}            
             className="game-button green"
             disabled={isShowingSequence}
             ref={greenButtonRef}
@@ -175,11 +172,12 @@ function TinTonGame() {
         </div>
       </div>
 
-      {/* show Start button only when the haven't started yet */}
-      {!isPlaying && isFreshStart && <StartModal onClick={handleStart} setName={setName}/>}
-      {/* show Game Over with option to start again */}
-      {!isPlaying && !isFreshStart && <GameOverModal onClick={handleStart} name={name} score={score}/>}
       <Nudge nudge={nudge}/>
+      {/* show Start button only when the haven't started yet */}
+      {!isPlaying && isFreshStart && <StartModal onClick={handleStart} scoreBoard={scoreBoard} setName={setName}/>}
+      {/* show Game Over with option to start again */}
+      {!isPlaying && !isFreshStart && <GameOverModal onClick={handleStart} scoreBoard={scoreBoard} name={name} score={score}/>}
+      {showScoreBoard && <ScoreBoard scoreBoard={scoreBoard}/>}
       
     </div>
   );
