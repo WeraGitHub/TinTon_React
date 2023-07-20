@@ -9,10 +9,6 @@ import GameOverModal from "./GameOverModal";
 
 const colors = ["green", "red", "yellow", "blue"];
 
-const renderNudge = (message) => {
-  return <Nudge nudge={message} />;
-};
-
 function TinTonGame() {
   // State for the sequence of colors to remember
   const [sequence, setSequence] = useState([]);
@@ -22,7 +18,6 @@ function TinTonGame() {
   const [currentColorIndex, setCurrentColorIndex] = useState(0);
     // state for message to display when it's players turn 
   const [nudge, setNudge] = useState('');
-  const [isNudgeTime, setIsNudgeTime] = useState(false);
   // State to determine if the sequence is being shown or not
   const [isShowingSequence, setIsShowingSequence] = useState(false);
   // players name
@@ -65,8 +60,6 @@ function TinTonGame() {
   // Function to handle the color button click
   const handleColorButtonClick = (e) => {
     if (isPlaying) {
-      setNudge("");
-      setIsNudgeTime(false);
       // Add a temporary opacity class for visual feedback
       e.target.classList.add("opacity");
 
@@ -80,6 +73,7 @@ function TinTonGame() {
         if (sequence[currentColorIndex] === clickButtonColor) {
           // If it's all the sequence done - all the required clicks
           if (currentColorIndex === sequence.length - 1) {
+            setNudge("");
             setTimeout(() => {
               // Reset the current color index and add a new random color to the sequence
               setCurrentColorIndex(0);
@@ -126,9 +120,7 @@ function TinTonGame() {
             if (idx < sequence.length - 1) {
               showSequence(idx + 1);
             } else {
-              // setNudge("Your turn");
-              renderNudge("Your turn");
-              setIsNudgeTime(true);
+              setNudge("Your turn!");
               setIsShowingSequence(false);
             }
           }, 250);
@@ -187,10 +179,8 @@ function TinTonGame() {
       {!isPlaying && isFreshStart && <StartButtonArea onClick={handleStart} setName={setName}/>}
       {/* show Game Over with option to start again */}
       {!isPlaying && !isFreshStart && <GameOverModal onClick={handleStart} name={name} score={score}/>}
-      {/* <Nudge nudge={nudge}/> */}
-      {/* {isNudgeTime && <Nudge nudge={"It's your turn"}/>} */}
+      <Nudge nudge={nudge}/>
       
-      {isNudgeTime && renderNudge("It's your turn")}
     </div>
   );
 }
