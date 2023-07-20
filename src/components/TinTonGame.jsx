@@ -7,6 +7,7 @@ import Nudge from "./Nudge";
 import StartModal from "./StartModal";
 import GameOverModal from "./GameOverModal";
 import ScoreBoard from "./ScoreBoard";
+import { saveScoreToLocalStorage } from './scoreStorage';
 
 const colors = ["green", "red", "yellow", "blue"];
 
@@ -84,8 +85,10 @@ function TinTonGame() {
         }
         // or failed:
         else {
-          if ( sequence.length > 0 ){
-            setScore(sequence.length-1);
+          if ( sequence.length > 0 ) {
+            const currentScore = sequence.length - 1;
+            setScore(currentScore); // Update the score state with the current score
+            saveScoreToLocalStorage(name, currentScore); // Save the current score to local storage
           } 
           resetGame();
         }
@@ -175,7 +178,7 @@ function TinTonGame() {
       {!isPlaying && isFreshStart && <StartModal onClick={handleStart} scoreBoard={scoreBoard} setName={setName}/>}
       {/* show Game Over with option to start again */}
       {!isPlaying && !isFreshStart && <GameOverModal onClick={handleStart} scoreBoard={scoreBoard} name={name} score={score}/>}
-      {showScoreBoard && <ScoreBoard scoreBoard={scoreBoard}/>}
+      {showScoreBoard && <ScoreBoard onClose={scoreBoard}/>}
       
     </div>
   );
