@@ -5,10 +5,18 @@
     border: none;
     outline: none;
     cursor: pointer;
+    border: 5px solid transparent;
+    &:hover {
+      border-color: rgba(0, 0, 0, 0.138);
+      /* opacity: 0.8; */
+    }
   }
   
   .game-button:disabled, .game-button[disabled] {
     cursor: unset;
+    &:hover {
+      border-color: transparent;
+    }
   }
   
   .yellow {
@@ -29,5 +37,6 @@
   }
   
   .opacity {
-    opacity: 0.5;
+    opacity: 0.5 !important;
+    border-color: rgba(0, 0, 0, 0.32) !important;
   }
