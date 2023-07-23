@@ -7,7 +7,6 @@ export const saveScoreToLocalStorage = (name, score) => {
   
     // Add the new score to the list of scores
     const newScore = { name, score };
-    console.log(name, score);
     existingScores.push(newScore);
   
     // Sort the scores in descending order based on the score
