@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/TinTon_React/static/css/main.920153bc.css",
+    "main.js": "/TinTon_React/static/js/main.19ae6ace.js",
+    "index.html": "/TinTon_React/index.html",
+    "main.920153bc.css.map": "/TinTon_React/static/css/main.920153bc.css.map",
+    "main.19ae6ace.js.map": "/TinTon_React/static/js/main.19ae6ace.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.920153bc.css",
+    "static/js/main.19ae6ace.js"
+  ]
+}
