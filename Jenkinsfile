@@ -12,10 +12,14 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/WeraGitHub/TinTon_React.git'
             }
         }
-        stage('Build'){
+        stage('Build App'){
             steps {
                 sh 'npm install'
                 sh 'npm run build'
+            }
+        }
+        stage('Build Container'){
+            steps {
                 sh 'docker build -t $DOCKER_IMAGE_NAME .'
             }
         }
