@@ -9,7 +9,9 @@ pipeline {
     stages {
         stage('Checkout'){
             steps {
-                git branch: 'main', url: 'https://github.com/WeraGitHub/TinTon_React.git'
+                // Use the 'withCredentials' block to specify the GitHub credentials
+                withCredentials([usernamePassword(credentialsId: '101', passwordVariable: 'GITHUB_TOKEN', usernameVariable: 'GITHUB_USER')]) {
+                    git branch: 'main', credentialsId: '101', url: 'https://github.com/WeraGitHub/TinTon_React.git'
             }
         }
         stage('Build App'){
