@@ -1,5 +1,4 @@
 FROM node:19-alpine
-
 # change into a folder called /app
 WORKDIR /app
 # only copy package.json
