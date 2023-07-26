@@ -4,6 +4,11 @@
 
 https://github.com/WeraGitHub/TinTon_React/assets/67145460/dcfff8eb-c14a-4988-88cd-57253f0b1b18
 
+<br >
+<br >
+🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶
+<br >
+<br >
 
 ## Getting started locally
 ### 1. Open up your local terminal and in your desired location clone the repository:
@@ -27,6 +32,9 @@ https://github.com/WeraGitHub/TinTon_React/assets/67145460/dcfff8eb-c14a-4988-88
 
 <br >
 <br >
+🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶
+<br >
+<br >
 
 ## Deploying on AWS using Docker image
 ### 1. Connect to your EC2 instance (Amazon Linux AMI) via ssh.
@@ -47,6 +55,10 @@ https://github.com/WeraGitHub/TinTon_React/assets/67145460/dcfff8eb-c14a-4988-88
 
 ### 5. Enjoy 🐶!
 
+
+<br >
+<br >
+🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶
 <br >
 <br >
 
@@ -119,7 +131,12 @@ Make sure you restart your ssh connection after that.
 `sudo systemctl restart jenkins`
 
 
-###	6. Create and add Dockerfile to your project stored on GitHub
+### 6. Install Node.js and npm on the EC2 instance
+
+`sudo yum install -y nodejs npm`
+
+
+### 7. Create and add Dockerfile to your project stored on GitHub
 
 `vim Dockerfile`
    
@@ -132,7 +149,7 @@ RUN npm run build
 CMD ["npm", "run", "start"]
 ```
 
-### 7. Create GitHub webhook
+### 8. Create GitHub webhook
 
 Copy public IP of your instance
 
@@ -156,58 +173,77 @@ And click *Add webhook*
 
 
 
-### 8. Create Pipeline in Jenkins
+### 9. Create Pipeline in Jenkins
 
 Create and add Jenkinsfile to your project at root level:
 ```
 pipeline {
     agent any
 
+    environment {
+        DOCKER_IMAGE_NAME = "tinton-image"
+        DOCKER_CONTAINER_NAME = "tinton-container"
+    }
+
     stages {
         stage('Checkout'){
             steps {
+                // Use this one if the repo is public:
                 git branch: 'main', url: 'https://github.com/WeraGitHub/TinTon_React.git'
+                // And if it is private and you have credentials added in Jenkins with ID 101
+                // use the 'withCredentials' block to specify the GitHub credentials:
+                withCredentials([usernamePassword(credentialsId: '101', passwordVariable: 'GITHUB_TOKEN', usernameVariable:                           'GITHUB_USER')]) {
+                   git branch: 'main', credentialsId: '101', url: 'https://github.com/WeraGitHub/TinTon_React.git'
+                }
             }
         }
-        stage('Build'){
+        stage('Build App'){
             steps {
-
+                sh 'npm install'
+                sh 'npm run build'
+            }
+        }
+        stage('Build Container'){
+            steps {
+                sh 'docker build -t $DOCKER_IMAGE_NAME .'
             }
         }
         stage('Test'){
             steps {
-                
+                sh 'npm test'
             }
         }
         stage('Deploy'){
             steps {
-                
+                // stop and remove named container if it already exists - just in case
+                sh 'docker stop $DOCKER_CONTAINER_NAME || true'
+                sh 'docker rm $DOCKER_CONTAINER_NAME || true'
+                sh 'docker run --name $DOCKER_CONTAINER_NAME -d -p 3000:3000 $DOCKER_IMAGE_NAME'
             }
         }
     }
 }
 ```
 And now back in Jenkins:
-1. Create new item (job) - make it a pipeline
-2. Tick Build Trigger: *GitHub hook trigger for GITScm polling*
-3. In the Pipeline section: ![image](https://user-images.githubusercontent.com/67145460/235289498-9de3dee7-43bb-475b-8678-97f348edab00.png)
-4. Click *Apply* then *Save*
-5. *Build Now*
+1. Make sure you have NodeJS and NPM plugins installed
+2. Create new item (job) - make it a pipeline
+3. Tick Build Trigger: *GitHub hook trigger for GITScm polling*
+4. In the Pipeline section: ![image](https://user-images.githubusercontent.com/67145460/235289498-9de3dee7-43bb-475b-8678-97f348edab00.png)
+5. Click *Apply* then *Save*
+6. *Build Now*
 ![image](https://user-images.githubusercontent.com/67145460/235289597-58ebbb0f-acec-40ad-90b9-199b96bcb724.png)
 
 Our web app should be now available on http://*your-public-IP-here*:5000 
 
+#### Next time you push any changes to your main branch on GitHub that will trigger new Build on Jenkins.
 
+### 10.	:tada:	:tada:	:tada:  Enjoy 	:tada: 	:tada: 	:tada:
 
-### 9.	:tada:	:tada:	:tada:  Enjoy 	:tada: 	:tada: 	:tada:
 
 <br >
 <br >
+🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶
 <br >
-<br >
-
-# 
-
 <br >
 <br >
 
