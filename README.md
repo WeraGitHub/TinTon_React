@@ -65,6 +65,7 @@ https://github.com/WeraGitHub/TinTon_React/assets/67145460/dcfff8eb-c14a-4988-88
 ## CI/CD using AWS, Jenkins and Docker
 ### 1. AWS - create and connect to an EC2 instance
 Create your ec2 instance with the elastic IP address and right security group
+Recommended: Amazon Linux 2 AMI
 
 ### 2. Connect to your instance via SSH
 
@@ -133,7 +134,9 @@ Make sure you restart your ssh connection after that.
 
 ### 6. Install Node.js and npm on the EC2 instance
 
-`sudo yum install -y nodejs npm`
+`curl -sL https://rpm.nodesource.com/setup_14.x | sudo bash -`
+
+`sudo yum install -y nodejs`
 
 
 ### 7. Create and add Dockerfile to your project stored on GitHub
@@ -170,7 +173,9 @@ And click *Add webhook*
 
 
 #### If your GitHub repo is private you need to create credentials in Jenkins – using ssh key and make sure you configure GitHub repo in a matching manner, before you start creating your Jenkins pipeline
+Go to Manage Jenkins -> Credentials -> while you hover over *global* word wait for an arrow and option to Add Credential -> Add Credential -> if you choose option 'Username with password' provide your github login and your personal github token instead of password -> Make sure you remember the ID -it will be needed in the pipeline.!
 
+<img src="https://github.com/WeraGitHub/TinTon_React/assets/67145460/f347ffdc-4276-4858-8e78-92dee58747e8" width="400" height="auto">
 
 
 ### 9. Create Pipeline in Jenkins
@@ -225,15 +230,14 @@ pipeline {
 }
 ```
 And now back in Jenkins:
-1. Make sure you have NodeJS and NPM plugins installed
-2. Create new item (job) - make it a pipeline
+1. Create new item (job) - make it a pipeline
 3. Tick Build Trigger: *GitHub hook trigger for GITScm polling*
 4. In the Pipeline section: ![image](https://user-images.githubusercontent.com/67145460/235289498-9de3dee7-43bb-475b-8678-97f348edab00.png)
 5. Click *Apply* then *Save*
 6. *Build Now*
 ![image](https://user-images.githubusercontent.com/67145460/235289597-58ebbb0f-acec-40ad-90b9-199b96bcb724.png)
 
-Our web app should be now available on http://*your-public-IP-here*:5000 
+Our web app should be now available on http://*your-public-IP-here*:3000 
 
 #### Next time you push any changes to your main branch on GitHub that will trigger new Build on Jenkins.
 
