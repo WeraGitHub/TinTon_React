@@ -17,8 +17,8 @@ pipeline {
         }
         stage('Build App'){
             steps {
-                sh 'sudo npm install'
-                sh 'sudo npm run build'
+                sh 'npm install'
+                sh 'npm run build'
             }
         }
         stage('Build Container'){
