@@ -2,7 +2,9 @@
 # TinTon 
 #### TinTon Game is a memory-based color pattern game built with React (`create-react-app`). The game presents a sequence of colored buttons to the player, who needs to remember the sequence and repeat it correctly to advance. The difficulty level increases as the sequence gets longer. The game keeps track of the player's score, and there's a scoreboard to display the top 5 scores.
 
-https://github.com/WeraGitHub/TinTon_React/assets/67145460/dcfff8eb-c14a-4988-88cd-57253f0b1b18
+https://github.com/WeraGitHub/TinTon_React/assets/67145460/7cdae25a-8258-4943-8ca9-6653ad59fd3d
+
+
 
 <br >
 <br >
