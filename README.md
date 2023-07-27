@@ -66,25 +66,29 @@ https://github.com/WeraGitHub/TinTon_React/assets/67145460/dcfff8eb-c14a-4988-88
 #### About this project
 For planning purposes and tracking progress I used KanBan board in Trello:
 
-<img src="https://github.com/WeraGitHub/TinTon_React/assets/67145460/8382418e-217a-4d3f-acba-a36de9494dfb" width="400" height="auto">
+<img src="https://github.com/WeraGitHub/TinTon_React/assets/67145460/4cb4c69d-29d2-4eb1-9064-37614b33ad31" width="400" height="auto">
+
 <br >
 <br >
 
 For design, Figma:
 
-<img src="https://github.com/WeraGitHub/TinTon_React/assets/67145460/cfdcf39a-be63-4fff-8e2c-9de940d8f73a" width="400" height="auto">
+<img src="https://github.com/WeraGitHub/TinTon_React/assets/67145460/447363ee-ee63-4fab-9e0d-7f15c8a4ce6f" width="400" height="auto">
+
 <br >
 <br >
 
 Developed in React using Visual Studio Code:
 
-<img src="https://github.com/WeraGitHub/TinTon_React/assets/67145460/2c6f88f1-4912-4d25-a565-f6228d5edc92" width="400" height="auto">
+<img src="https://github.com/WeraGitHub/TinTon_React/assets/67145460/9a30c7b1-62fb-49b2-9eba-9f58893dc355" width="400" height="auto">
+
 <br >
 <br >
 
 And you can find Dokerized image here: https://hub.docker.com/repository/docker/weronikadocker/tinton-react/general
 
-<img src="https://github.com/WeraGitHub/TinTon_React/assets/67145460/5e07de4d-061e-4e93-8c16-1dcbb0678fb0" width="400" height="auto">
+<img src="https://github.com/WeraGitHub/TinTon_React/assets/67145460/f386b4fb-e3de-4b38-8b62-eebd2b3ee4ba" width="400" height="auto">
+
 
 In order to create this image and push it to the registry, I have completed the following steps on my Amazon Linux EC2 instance:
 
